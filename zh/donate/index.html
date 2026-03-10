@@ -1,308 +1,277 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>捐赠Lingmo OS</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-<link rel="icon" href="https://lingmo.org/Icon.svg" type="image/svg+xml">
-<link rel="shortcut icon" href="https://lingmo.org/Icon.svg" type="image/svg+xml">
-<script src="https://cdn.tailwindcss.com/3.4.16"></script>
-<script>tailwind.config={theme:{extend:{colors:{primary:'#1E90FF',secondary:'#4169E1'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
-<link rel="stylesheet" href="../../styles.css">
+  <meta charset="UTF-8">
+  <title>支持 Lingmo OS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <style>
+    /* ===== 亮色主题 ===== */
+    :root {
+      --primary: #4f7cff;
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text: #1f1f1f;
+      --sub: #6b7280;
+      --border: #e5e7eb;
+      --tab-bg: #f1f3f8;
+    }
+
+    /* ===== 暗色主题（跟随系统） ===== */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #7aa2ff;
+        --bg: #0f1115;
+        --card: #171a21;
+        --text: #f3f4f6;
+        --sub: #9ca3af;
+        --border: #2a2e37;
+        --tab-bg: #20232c;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      color: var(--text);
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border-radius: 22px 22px 0 0;
+      padding: 24px 20px 28px;
+      box-shadow: 0 -12px 30px rgba(0,0,0,.12);
+      animation: slideUp .5s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h2 {
+      margin: 4px 0 6px;
+      text-align: center;
+    }
+
+    .desc {
+      text-align: center;
+      font-size: 14px;
+      color: var(--sub);
+      margin-bottom: 18px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--tab-bg);
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 18px;
+    }
+
+    .tabs button {
+      flex: 1;
+      border: none;
+      background: none;
+      padding: 14px 0;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      color: var(--text);
+      transition: all .25s ease;
+    }
+
+    .tabs button.active {
+      background: var(--card);
+      color: var(--primary);
+      box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    }
+
+    /* Amounts */
+    .amounts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .amounts button {
+      padding: 16px 0;
+      font-size: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      transition: all .2s ease;
+    }
+
+    .amounts button:active {
+      transform: scale(.96);
+      background: rgba(127,127,127,.08);
+    }
+
+    /* QR */
+    .qr {
+      margin-top: 14px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all .3s ease;
+    }
+
+    .qr.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .qr img {
+      width: 68vw;
+      max-width: 260px;
+      border-radius: 16px;
+      background: #fff;
+      padding: 8px;
+    }
+
+    .qr p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--sub);
+    }
+
+    /* ===== 赞助墙 ===== */
+    .wall {
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .wall h3 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .wall-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .wall-item {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(127,127,127,.08);
+      font-size: 13px;
+      color: var(--text);
+      animation: fadeIn .4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--sub);
+    }
+
+    @media (min-width: 768px) {
+      body { align-items: center; }
+      .card {
+        border-radius: 22px;
+        box-shadow: 0 20px 40px rgba(0,0,0,.2);
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-50">
-<!-- 导航栏 -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm">
-<div class="container mx-auto px-4 py-3 flex items-center justify-between">
-<a href="../" class="flex items-center">
-<!-- <span class="text-3xl font-['Pacifico'] text-primary">Lingmo OS</span> -->
- <img src="../../images/logo.svg" alt="Lingmo OS" style="width: 240px; height: 50px;">
-</a>
-<nav class="hidden md:flex space-x-8">
-<a href="../" class="nav-link text-gray-700 hover:text-primary font-medium">首页</a>
-<a href="../download" class="nav-link text-gray-700 hover:text-primary font-medium">下载</a>
-<a href="https://wiki.lingmo.org/" class="nav-link text-gray-700 hover:text-primary font-medium">文档</a>
-<a href="https://bbs.lingmo.org" class="nav-link text-gray-700 hover:text-primary font-medium">社区</a>
-<a href="#" class="nav-link text-gray-700 hover:text-primary font-medium">捐赠</a>
-<!-- <a href="../lifecycle/" class="nav-link text-gray-700 hover:text-primary font-medium">生命周期</a> -->
-<a href="../about" class="nav-link text-gray-700 hover:text-primary font-medium">关于</a>
-</nav>
-<button class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700" id="mobile-menu-button">
-<i class="ri-menu-line ri-lg"></i>
-</button>
-</div>
-<!-- 移动端菜单 -->
-<div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
-<div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-<a href="../" class="text-gray-700 hover:text-primary font-medium py-2">首页</a>
-<a href="../download" class="text-gray-700 hover:text-primary font-medium py-2">下载</a>
-<a href="https://wiki.lingmo.org/" class="text-gray-700 hover:text-primary font-medium py-2">文档</a>
-<a href="https://bbs.lingmo.org" class="text-gray-700 hover:text-primary font-medium py-2">社区</a>
-<a href="#" class="text-gray-700 hover:text-primary font-medium py-2">捐赠</a>
-<!-- <a href="../lifecycle/" class="text-gray-700 hover:text-primary font-medium py-2">生命周期</a> -->
-<a href="../about" class="text-gray-700 hover:text-primary font-medium py-2">关于</a>
-</div>
-</div>
-</header>
-<!-- 捐赠支持 -->
-<section id="donate" class="py-20 bg-gray-50">
-<br>
-<div class="container mx-auto px-4">
-<div class="text-center mb-16">
-<h2 class="text-4xl font-bold mb-4">捐赠支持</h2>
-<p class="text-lg text-gray-600 max-w-3xl mx-auto">您的支持是我们持续改进 Lingmo OS 的动力</p>
-</div>
-<div class="max-w-3xl mx-auto">
-<div class="bg-white p-8 rounded-lg shadow-md">
-<div class="text-center mb-8">
-<p class="text-gray-700 mb-6">
-Lingmo OS 是一个开源项目，我们致力于为用户提供最好的操作系统体验。您的捐赠将用于支持开发团队、服务器维护和新功能研发。
-</p>
-<div class="inline-flex bg-gray-200 p-1 rounded-full">
-<!-- <button class="payment-tab px-6 py-2 rounded-full whitespace-nowrap focus:outline-none" data-target="wechat">
-<i class="ri-wechat-pay-fill mr-1 text-green-500"></i>微信支付
-</button> -->
-<button class="payment-tab px-6 py-2 rounded-full whitespace-nowrap focus:outline-none active bg-white text-primary shadow-sm" data-target="wechat">
-    <i class="ri-wechat-pay-fill mr-1 text-green-500"></i>微信支付
-</button>
-<button class="payment-tab active px-6 py-2 rounded-full whitespace-nowrap focus:outline-none" data-target="alipay">
-<i class="ri-alipay-fill mr-1 text-blue-500"></i>支付宝
-</button>
-</div>
-</div>
-<div class="payment-options">
-<!-- 支付宝 -->
-<div id="alipay-option" class="payment-option">
-<div class="flex flex-col items-center">
-<div class="bg-blue-50 p-4 rounded-lg mb-4">
-<div class="w-48 h-48 bg-white p-2 rounded-lg shadow-sm">
-<img src="../../images/IMG_20250614_141121.jpg" alt="支付宝支付二维码" class="w-full h-full object-cover rounded">
-<!--<div class="w-full h-full flex items-center justify-center bg-blue-100 rounded">-->
-<!--<i class="ri-qr-code-line ri-4x text-blue-500"></i>-->
-</div>
-</div>
-</div>
-<p class="text-gray-600 text-sm">
-<i class="ri-information-line text-blue-500"></i>
-请使用支付宝扫描上方二维码进行捐赠
-</p>
-</div>
-</div>
-<!-- 微信支付 -->
-<div id="wechat-option" class="payment-option active">
-  <div class="flex flex-col items-center">
-    <div class="bg-green-50 p-4 rounded-lg mb-4">
-      <div class="w-48 h-48 bg-white p-2 rounded-lg shadow-sm">
-        <!-- 微信支付二维码图片 -->
-        <img src="../../images/wechat.png" alt="微信支付二维码" class="w-full h-full object-cover rounded">
-      </div>
-    </div>
-    <p class="text-gray-600 text-sm">
-      <i class="ri-information-line text-green-500"></i>
-      扫描二维码完成支付
-    </p>
+<body>
+
+<div class="card">
+  <h2>支持这个项目</h2>
+  <div class="desc">如果它对你有帮助，可以请我喝杯咖啡 ☕<br>👏贡献者将会在贡献墙和感谢名单中展示</div>
+
+  <div class="tabs">
+    <button class="active" id="wx" onclick="selectPay('wx')">微信</button>
+    <button id="alipay" onclick="selectPay('alipay')">支付宝</button>
+  </div>
+
+  <div class="amounts">
+    <button onclick="pay(10)">￥28.88</button>
+    <button onclick="pay(30)">￥58.88</button>
+    <button onclick="pay(50)">￥80</button>
+<button onclick="pay(100)">￥100</button>
+  </div>
+
+  <div class="qr" id="qr">
+    <img id="qrimg">
+    <p id="qrtext"></p>
+  </div>
+
+  <!-- 赞助墙 -->
+  <div class="wall">
+    <h3>感谢这些支持者 ❤️</h3>
+    <div class="wall-listing" id="wall"></div>
+  </div>
+
+  <div class="footer">
+    支持是自愿的 · 若愿意出现在鸣谢名单中，请告诉我昵称
   </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 页脚 -->
-<footer class="bg-gray-800 text-white py-12">
-<div class="container mx-auto px-4">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-<div>
-<!-- <h3 class="text-xl font-['Pacifico'] mb-4">Lingmo OS</h3> -->
-<a href="#" class="flex items-center">
-<!-- <span class="text-3xl font-['Pacifico'] text-primary">Lingmo OS</span> -->
- <img src="../../images/logo.svg" alt="Lingmo OS" style="width: 190px; height: 50px;">
-</a>
-<p class="text-gray-400 mb-4">基于 Debian GNU/Linux 的现代化操作系统。</p>
-<div class="flex space-x-4">
-<a href="https://github.com/LingmoOS" class="text-gray-400 hover:text-white transition-colors">
-<i class="ri-github-fill ri-lg"></i>
-</a>
-<a href="https://x.com/LingmoOS" class="text-gray-400 hover:text-white transition-colors">
-<i class="ri-twitter-x-fill ri-lg"></i>
-</a>
-<a href="https://t.me/+ffiOdFIY83czYzE1" class="text-gray-400 hover:text-white transition-colors">
-<i class="ri-telegram-fill ri-lg"></i>
-</a>
-<a href="https://space.bilibili.com/595380133" class="text-gray-400 hover:text-white transition-colors">
-<i class="ri-bilibili-fill ri-lg"></i>
-</a>
-<a href="https://qm.qq.com/q/l8QeupIEjS" class="text-gray-400 hover:text-white transition-colors">
-<i class="ri-qq-fill ri-lg"></i>
-</a>
-</div>
-</div>
-<div>
-<h4 class="text-lg font-semibold mb-4">快速链接</h4>
-<ul class="space-y-2">
-<li><a href="../" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
-<li><a href="../download/" class="text-gray-400 hover:text-white transition-colors">下载</a></li>
-<!-- <li><a href="../lifecycle/" class="text-gray-400 hover:text-white transition-colors">生命周期</a></li> -->
-<li><a href="../about/" class="text-gray-400 hover:text-white transition-colors">关于</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-lg font-semibold mb-4">资源</h4>
-<ul class="space-y-2">
-<li><a href="https://wiki.lingmo.org/" class="text-gray-400 hover:text-white transition-colors">维基百科/文档</a></li>
-<li><a href="https://github.com/LingmoOS" class="text-gray-400 hover:text-white transition-colors">源代码</a></li>
-<!-- <li><a href="#" class="text-gray-400 hover:text-white transition-colors">应用商店</a></li> -->
-<li><a href="https://wiki.lingmo.org/zh/wiki/faq" class="text-gray-400 hover:text-white transition-colors">FQA</a></li>
-<li><a href="https://space.bilibili.com/595380133" class="text-gray-400 hover:text-white transition-colors">bilibili</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-lg font-semibold mb-4">相关链接</h4>
-<ul class="space-y-2">
-<li><a href="https://debian.org/" class="text-gray-400 hover:text-white transition-colors">Debian GNU/Linux</a></li>
-<li><a href="https://kernel.org" class="text-gray-400 hover:text-white transition-colors">Linux</a></li>
-</ul>
-</div>
-<!-- <div>
-<h4 class="text-lg font-semibold mb-4">订阅更新</h4>
-<p class="text-gray-400 mb-4">订阅我们的新闻通讯，获取最新版本和功能更新。</p>
-<form class="flex">
-<input type="email" placeholder="您的邮箱地址" class="w-full px-4 py-2 rounded-l-button text-gray-800 focus:outline-none border-none text-sm">
-<button type="submit" class="gradient-bg px-4 py-2 rounded-r-button whitespace-nowrap">
-订阅
-</button>
-</form>
-</div> -->
-</div>
-<div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
-<div class="text-gray-400 text-sm mb-4 md:mb-0">
-&copy; 2023-2025 Lingmo OS Team。保留所有权利。<br>
-<a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" style="color:#949494;text-decoration:none">陇ICP备2024012028号</a>
-</div>
-<div class="flex space-x-6">
-<a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">隐私政策</a>
-<a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">服务条款</a>
-<a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">许可协议</a>
-</div>
-</div>
-</div>
-</footer>
-<script id="mobile-menu-script">
-document.addEventListener('DOMContentLoaded', function() {
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-mobileMenuButton.addEventListener('click', function() {
-mobileMenu.classList.toggle('hidden');
-});
-// 点击菜单项后关闭菜单
-const mobileMenuItems = mobileMenu.querySelectorAll('a');
-mobileMenuItems.forEach(item => {
-item.addEventListener('click', function() {
-mobileMenu.classList.add('hidden');
-});
-});
-});
+
+<script>
+  let payType = 'wx';
+
+  function selectPay(type) {
+    payType = type;
+    document.getElementById('wx').classList.remove('active');
+    document.getElementById('alipay').classList.remove('active');
+    document.getElementById(type).classList.add('active');
+    document.getElementById('qr').classList.remove('show');
+  }
+
+  function pay(amount) {
+    const img = document.getElementById('qrimg');
+    const text = document.getElementById('qrtext');
+    const qr = document.getElementById('qr');
+
+    img.src = `${payType}_${amount}.png`;
+    text.innerText =
+      payType === 'wx'
+        ? `赞助开发者 ￥${amount}`
+        : `赞助开发者 ￥${amount}`;
+
+    qr.classList.remove('show');
+    void qr.offsetWidth;
+    qr.classList.add('show');
+  }
+
+  /* ===== 赞助名单（手动维护） ===== */
+  const sponsors = [
+    "将会在每月月末展示"
+  ];
+
+  const wall = document.getElementById("wall");
+  sponsors.forEach(name => {
+    const div = document.createElement("div");
+    div.className = "wall-item";
+    div.innerText = name;
+    wall.appendChild(div);
+  });
 </script>
-<script id="version-tabs-script">
-document.addEventListener('DOMContentLoaded', function() {
-const versionTabs = document.querySelectorAll('.version-tab');
-versionTabs.forEach(tab => {
-tab.addEventListener('click', function() {
-// 移除所有标签的活动状态
-versionTabs.forEach(t => t.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm'));
-// 添加当前标签的活动状态
-this.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm');
-// 隐藏所有内容
-const tabContents = document.querySelectorAll('.tab-content');
-tabContents.forEach(content => content.classList.remove('active'));
-// 显示当前标签对应的内容
-const targetId = this.getAttribute('data-target') + '-content';
-document.getElementById(targetId).classList.add('active');
-});
-});
-});
-</script>
-<script id="payment-tabs-script">
-document.addEventListener('DOMContentLoaded', function() {
-const paymentTabs = document.querySelectorAll('.payment-tab');
-paymentTabs.forEach(tab => {
-tab.addEventListener('click', function() {
-// 移除所有标签的活动状态
-paymentTabs.forEach(t => t.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm'));
-// 添加当前标签的活动状态
-this.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm');
-// 隐藏所有内容
-const paymentOptions = document.querySelectorAll('.payment-option');
-paymentOptions.forEach(option => option.classList.remove('active'));
-// 显示当前标签对应的内容
-const targetId = this.getAttribute('data-target') + '-option';
-document.getElementById(targetId).classList.add('active');
-});
-});
-});
-</script>
-<script id="faq-toggle-script">
-document.addEventListener('DOMContentLoaded', function() {
-const faqToggles = document.querySelectorAll('.faq-toggle');
-faqToggles.forEach(toggle => {
-toggle.addEventListener('click', function() {
-const content = this.nextElementSibling;
-const icon = this.querySelector('i');
-// 切换内容显示状态
-content.classList.toggle('hidden');
-// 切换图标旋转状态
-if (content.classList.contains('hidden')) {
-icon.style.transform = 'rotate(0deg)';
-} else {
-icon.style.transform = 'rotate(180deg)';
-}
-});
-});
-});
-</script>
-<script id="smooth-scroll-script">
-document.addEventListener('DOMContentLoaded', function() {
-// 平滑滚动
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function(e) {
-e.preventDefault();
-const targetId = this.getAttribute('href');
-if (targetId === '#') return;
-const targetElement = document.querySelector(targetId);
-if (targetElement) {
-window.scrollTo({
-top: targetElement.offsetTop - 80, // 考虑固定导航栏的高度
-behavior: 'smooth'
-});
-}
-});
-});
-// 导航高亮
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-link');
-window.addEventListener('scroll', function() {
-let current = '';
-sections.forEach(section => {
-const sectionTop = section.offsetTop;
-const sectionHeight = section.clientHeight;
-if (pageYOffset >= sectionTop - 100) {
-current = section.getAttribute('id');
-}
-});
-navLinks.forEach(link => {
-link.classList.remove('active');
-if (link.getAttribute('href') === `#${current}`) {
-link.classList.add('active');
-}
-});
-});
-});
-</script>
+
 </body>
 </html>
